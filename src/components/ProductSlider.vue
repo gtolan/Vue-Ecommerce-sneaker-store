@@ -1,0 +1,127 @@
+<template>
+<div class="product-line">
+    <div class="scroll-control"> </div>
+    <div class="scroll-products">
+        
+        <div class="scroll-products-wrapper">
+            
+
+           
+            <div v-for="shoe in shoes" :key="shoe.id" class="product-scroll-item">
+                <div class="image-container">
+                    <img :src="shoe.img" class="main-img">
+                    <img :src="shoe.hoverimg" class="hover-img">
+                </div>
+                <span class="shoe-price">{{shoe.title}}</span>
+                <span class="shoe-price">{{shoe.price}}</span>
+                <span class="shoe-color">{{shoe.color}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+    export default {
+        name:'ProductSlider',
+        data() {
+            return {
+                shoes:[{
+                    id:'s1',
+                    img:'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2015%2F03%2Fnike-air-cortez-forrest-gump-nearly-triples-in-value-over-the-weekend-1.jpg?q=75&w=800&cbr=1&fit=max',
+                    hoverimg:'https://dhb3yazwboecu.cloudfront.net/851/zapatillas_nike_cortez_basic_sl_gs_904764_103_0_brutalzapas_l.jpg',
+                    price:'120',
+                    title:'Nike Air Cortez'
+                },{
+                    id:'s2',
+                    img:'http://www.countrycovers.co.uk/images/countrycovers.co.uk/nike-cortez-black-shoes-mens-shoes-89YK.jpg',
+                    hoverimg:'http://www.cliftonrestaurant.co.uk/images/img-cli/2111-nike-cortez-ultra-moire-black.jpg',
+                    price:'99',
+                    title:'Nike Air Cortez'
+                },{
+                    id:'s3',
+                    img:'https://assets.adidas.com/images/h_600,f_auto,q_auto:sensitive,fl_lossy/e47104ddb5764d999696a8dd00c94351_9366/Swift_Run_Barrier_Shoes_Black_B37701_01_standard.jpg',
+                    hoverimg:'https://assets.myntassets.com/dpr_2,q_60,w_210,c_limit,fl_progressive/assets/images/3092537/2018/6/11/c89a04c1-aed3-4618-8bd9-5049e382a0691528696255059-Men-Adidas-Originals-Casual-Shoes-X_PLR-1981528696251728-1.jpg',
+                    price:'120',
+                    title:'Nike Air Cortez'
+                },{
+                    id:'s4',
+                    img:'https://media.office.co.uk/medias/sys_master/root/h79/hcf/9142021685278.jpg',
+                    hoverimg:'https://drff4istxjic.cloudfront.net/Adidas/Swift-Run/Grey-Four-Core-Black-Footwear-White/Adidas-Swift-Run-Grey-Four-Core-Black-Footwear-White_oP8JI.jpg',
+                    price:'120',
+                    title:'Adidas run swift',
+                    color:'grey'
+                }
+                ,{
+                    id:'s5',
+                    img:'https://media.journeys.ca/images/products/1_472061_ZM.JPG',
+                    hoverimg:'https://images.prod.meredith.com/product/b8bd7def1ba2ab45711ce0a5b48050a2/1532753482410/l/adidas-originals-swift-run-w-icy-pink-white-black-womens-shoes',
+                    price:'120',
+                    color:'pink',
+                    title:'Adidas run swift'
+                },{
+                    id:'s6',
+                    img:'https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/gsuin11ptg5qgktmzoat/air-force-1-07-shoe-JkTGzADv.jpg',
+                    hoverimg:'https://images.complex.com/complex/images/c_fill,g_center,w_1200/fl_lossy,pg_1,q_auto/iot1dbjmzr7z6kfkoxrb/nike-air-force-1-lead-1',
+                    price:'120',
+                    title:'Nike Air Force One',
+                    color:'white'
+                }]
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .scroll-products {
+        height: 300px;
+        max-height: 300px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100vw;
+    }
+    .product-scroll-item {
+        height: 300px;
+        width: 300px;
+        display: inline-block;
+        overflow: hidden;
+    }
+    .product-scroll-item .image-container img {
+        height: 100%;
+        width: 100%;
+    }
+    .image-container {
+            overflow: hidden;
+    height: 262px;
+    }
+    .scroll-products-wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 300px;
+        width: 200%;
+    }
+    .image-container .hover-img{
+        transition: .3s ease-in-out;
+    }
+    .image-container:hover .hover-img{
+        transform: translateY(-100%);
+    }
+    .image-container .main-img{
+        transition: .3s ease-in-out;
+    }
+    .image-container:hover .main-img{
+        transform: translateY(100%);
+    }
+    .scroll-control {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+        display: inline-block;
+    }
+    .product-line {
+        height: 300px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+</style>
