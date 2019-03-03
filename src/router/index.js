@@ -4,11 +4,17 @@ import Home from '@/components/Home'
 import ViewEmployee from '@/components/ViewEmployee'
 import NewEmployee from '@/components/NewEmployee'
 import EditEmployee from '@/components/EditEmployee'
+import ProductPage from '@/components/ProductPage'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/products/:name',
+      name: 'product-page',
+      component: ProductPage
+    },
     {
       path: '/',
       name: 'Home',
@@ -29,5 +35,6 @@ export default new Router({
       name: 'edit-employee',
       component: EditEmployee
     }
+    
   ]
 })

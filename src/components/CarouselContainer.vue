@@ -9,8 +9,8 @@
             :key="slide.id" 
             :style="{ backgroundImage: 'url(' + slide.img + ')' }"
             :class="{ active: (slide.id == activeSlide) }">
-        <h1 class="col s12 m12 l12">Title</h1>
-        <h5 class="col s12 m12 l12"> Some Text explanation..</h5>
+        <h1 class="col s12 m12 l12">{{slide.title}}</h1>
+        <h5 class="col s12 m12 l12"> {{slide.text}}</h5>
         <router-link class="waves-effect waves-light btn-large see-more red" v-bind:to="{}">See More</router-link>
       </div>
       <div class="row slider-control center-align" >
@@ -151,7 +151,7 @@
     z-index: 10;
     position: absolute;
     width: 100vw;
-    top:73vh;
+    top:80vh;
 }
 .slider-control button{
     margin: 0px 5px;

@@ -18,7 +18,7 @@
       </li>
     </ul> -->
     <div class="fixed-action-btn">
-      <router-link to="/new" class="btn-floating btn-large red">
+      <router-link to="/products" class="btn-floating btn-large red">
         <i class="fa fa-plus"></i>
       </router-link>
     </div>
@@ -32,6 +32,7 @@
   import ProductSlider from './ProductSlider'
   import PageFooter from './PageFooter';
   import Subscribe from './SubscribeSignUp';
+  
   export default {
     name: 'home',
     components:{Carousel, HomeCategory, PageFooter, ProductSlider, Subscribe},

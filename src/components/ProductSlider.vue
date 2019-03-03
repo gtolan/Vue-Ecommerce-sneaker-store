@@ -3,13 +3,13 @@
     <div class="scroll-control"> 
          <h5>Scroll some sneakers</h5>
          <div class="slider-btns">
-            <button class="btn-floating btn-medium waves-effect waves-light  left-chevron black lighten-2 "><i class="material-icons">chevron_left</i></button>
-            <button class="btn-floating btn-medium waves-effect waves-light lighten-3 right-chevron black lighten-2"><i class="material-icons">chevron_right</i></button>
+            <button @click="scrollLeft" class="btn-floating btn-medium waves-effect waves-light  left-chevron black lighten-2 "><i class="material-icons">chevron_left</i></button>
+            <button @click="scrollRight" class="btn-floating btn-medium waves-effect waves-light lighten-3 right-chevron black lighten-2"><i class="material-icons">chevron_right</i></button>
         </div>
         </div>
     <div class="scroll-products">
         
-        <div class="scroll-products-wrapper">
+        <div class="scroll-products-wrapper row">
             
 
            
@@ -18,8 +18,8 @@
                     <img :src="shoe.img" class="main-img">
                     <img :src="shoe.hoverimg" class="hover-img">
                 </div>
-                <span class="shoe-price">{{shoe.title}}</span>
-                <span class="shoe-price">{{shoe.price}}</span>
+                <span class="shoe-title col s8 offset-s1">{{shoe.title}}</span>
+                <span class="shoe-price">{{shoe.price | euros}}</span>
                 <span class="shoe-color">{{shoe.color}}</span>
             </div>
         </div>
@@ -41,12 +41,12 @@
                 },{
                     id:'s2',
                     img:'http://www.countrycovers.co.uk/images/countrycovers.co.uk/nike-cortez-black-shoes-mens-shoes-89YK.jpg',
-                    hoverimg:'http://www.cliftonrestaurant.co.uk/images/img-cli/2111-nike-cortez-ultra-moire-black.jpg',
+                    hoverimg:'https://media.office.co.uk/medias/sys_master/root/h68/h50/8979303628830.jpg',
                     price:'99',
                     title:'Nike Air Cortez'
                 },{
                     id:'s3',
-                    img:'https://assets.adidas.com/images/h_600,f_auto,q_auto:sensitive,fl_lossy/e47104ddb5764d999696a8dd00c94351_9366/Swift_Run_Barrier_Shoes_Black_B37701_01_standard.jpg',
+                    img:'https://resources.mandmdirect.com/Images/_default/a/o/4/ao4291_5_cloudzoom.jpg',
                     hoverimg:'https://assets.myntassets.com/dpr_2,q_60,w_210,c_limit,fl_progressive/assets/images/3092537/2018/6/11/c89a04c1-aed3-4618-8bd9-5049e382a0691528696255059-Men-Adidas-Originals-Casual-Shoes-X_PLR-1981528696251728-1.jpg',
                     price:'120',
                     title:'Nike Air Cortez'
@@ -74,6 +74,40 @@
                     color:'white'
                 }]
             }
+        },
+        methods:{
+            scrollLeft() {
+                const ProductSliderButton = document.querySelector('.scroll-products');
+                let count = 50;
+                function step(timestamp) {
+                    count--
+                    ProductSliderButton.scrollLeft = (ProductSliderButton.scrollLeft - 6) 
+                    if (count > 0) {
+                        window.requestAnimationFrame(step);
+                    }
+                }
+                window.requestAnimationFrame(step);
+
+            },
+            scrollRight() {
+                const ProductSliderButton = document.querySelector('.scroll-products');
+                let count = 50;
+                function step(timestamp) {
+                    count--
+                    ProductSliderButton.scrollLeft = (ProductSliderButton.scrollLeft + 6); 
+                    if (count > 0) {
+                        window.requestAnimationFrame(step);
+                    }
+                }
+                window.requestAnimationFrame(step);
+                
+            }
+        },
+        filters: {
+            euros: function (value) {
+                if (!value) return ''
+                return "€" + value;
+            }
         }
     }
 </script>
@@ -91,6 +125,7 @@
         width: 300px;
         display: inline-block;
         overflow: hidden;
+        cursor: pointer;
     }
     .product-scroll-item .image-container img {
         height: 100%;
