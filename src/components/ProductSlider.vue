@@ -1,6 +1,6 @@
 <template>
 <div class="product-line">
-    <div class="scroll-control"> </div>
+    <div class="scroll-control"> <h5>View some products</h5></div>
     <div class="scroll-products">
         
         <div class="scroll-products-wrapper">
@@ -117,6 +117,9 @@
         height: 300px;
         background-color: red;
         display: inline-block;
+    }
+    .scroll-control h5{
+        color: white;
     }
     .product-line {
         height: 300px;
