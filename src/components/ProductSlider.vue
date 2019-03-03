@@ -1,6 +1,12 @@
 <template>
 <div class="product-line">
-    <div class="scroll-control"> <h5>View some products</h5></div>
+    <div class="scroll-control"> 
+         <h5>Scroll some sneakers</h5>
+         <div class="slider-btns">
+            <button class="btn-floating btn-medium waves-effect waves-light  left-chevron black lighten-2 "><i class="material-icons">chevron_left</i></button>
+            <button class="btn-floating btn-medium waves-effect waves-light lighten-3 right-chevron black lighten-2"><i class="material-icons">chevron_right</i></button>
+        </div>
+        </div>
     <div class="scroll-products">
         
         <div class="scroll-products-wrapper">
@@ -99,6 +105,7 @@
         overflow-y: hidden;
         height: 300px;
         width: 200%;
+        border-bottom: 1px solid lightgray;
     }
     .image-container .hover-img{
         transition: .3s ease-in-out;
@@ -117,9 +124,13 @@
         height: 300px;
         background-color: red;
         display: inline-block;
+            padding: 1.5rem;
     }
     .scroll-control h5{
         color: white;
+    }
+    .scroll-control .slider-btns button {
+        margin: 2.5rem;
     }
     .product-line {
         height: 300px;

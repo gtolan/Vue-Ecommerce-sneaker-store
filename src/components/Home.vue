@@ -4,7 +4,9 @@
       <Carousel/>
       <HomeCategory/>
       <ProductSlider/>
+      <Subscribe />
       <PageFooter />
+      
     </div>
     
     <!-- <ul class="collection with-header">
@@ -29,9 +31,10 @@
   import HomeCategory from './HomeCategory'
   import ProductSlider from './ProductSlider'
   import PageFooter from './PageFooter';
+  import Subscribe from './SubscribeSignUp';
   export default {
     name: 'home',
-    components:{Carousel, HomeCategory, PageFooter, ProductSlider},
+    components:{Carousel, HomeCategory, PageFooter, ProductSlider, Subscribe},
     data () {
       return {
         employees: [],
@@ -58,7 +61,7 @@
 <style scoped>
     .components {
       display: grid;
-      grid-template-rows: auto auto auto auto;
+      grid-template-rows: auto auto auto auto auto;
       width: 100vw;
     }
     section {
