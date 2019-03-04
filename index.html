@@ -19,9 +19,17 @@
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script>
-      $(document).ready(() => {
-        $(".button-collapse").sideNav();
-      });
+      // M.AutoInit();
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.collapsible.expandable');
+        var options = {accordion: false};
+        var instances = M.Collapsible.init(elems, options);
+    });
+      // $(document).ready(function(){
+      //   $('.collapsible').collapsible(options);
+      // });
+
     </script>
   </body>
 </html>

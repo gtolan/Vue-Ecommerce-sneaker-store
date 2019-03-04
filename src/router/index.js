@@ -9,9 +9,12 @@ import ProductPage from '@/components/ProductPage'
 Vue.use(Router)
 
 export default new Router({
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
-      path: '/products/:name',
+      path: '/products',
       name: 'product-page',
       component: ProductPage
     },
