@@ -44,7 +44,7 @@
           <ProductList/>
         </div>
       </div>
-      <div class="row">
+      <div class="row bottom-page">
         <ProductSlider/>
         <PageFooter/>
       </div>
@@ -148,5 +148,8 @@ h2.header {
 }
 .white {
   color: black;
+}
+.row.bottom-page {
+  margin-bottom: 0px;
 }
 </style>

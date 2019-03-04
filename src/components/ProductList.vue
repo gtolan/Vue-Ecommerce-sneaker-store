@@ -4,7 +4,7 @@
       class="card medium col l4 s6 m6"
       v-for="shoe in mens"
       :key="shoe.id"
-      v-show="brand.toLowerCase() === shoe.brand.toLowerCase()"
+      v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all'"
     >
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator front" :src="shoe.img">
@@ -25,8 +25,10 @@
           {{shoe.title}}
           <i class="material-icons right">close</i>
         </span>
-        <img class :src="shoe.backimg">
-        <img class :src="shoe.frontimg">
+        <div class="card-image back waves-effect waves-block waves-light">
+          <img class="front" :src="shoe.backimg">
+          <img class="front-hover" :src="shoe.frontimg">
+        </div>
       </div>
     </div>
   </div>
@@ -138,6 +140,9 @@ export default {
 <style scoped>
 .card.medium .card-image {
   max-height: 68%;
+}
+.card.medium .card-image.back {
+  max-height: 82%;
 }
 button.btn.right.cart {
   width: 9rem;
