@@ -1,30 +1,46 @@
 <template>
   <div id="app">
-    <Navbar />
-    <transition name="fade" mode="out-in" appear>
-    <router-view/>
+    <Navbar/>
+    <transition name="slide">
+      <router-view/>
     </transition>
-    
   </div>
-  
 </template>
 
-<script>2
-import Navbar from './components/Navbar';
-import NewEmployee from './components/NewEmployee';
+<script>
+2;
+import Navbar from "./components/Navbar";
+import NewEmployee from "./components/NewEmployee";
 // import PageFooter from './components/PageFooter';
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Navbar,
-    NewEmployee,
+    NewEmployee
     // PageFooter
   }
-}
+};
 </script>
 
 <style>
-  nav {
-    margin-bottom:10px;
+nav {
+  margin-bottom: 10px;
+}
+.slide-enter-active {
+  animation: slide-in 0.5s;
+}
+.slide-leave-active {
+  animation: slide-in 0.5s reverse;
+}
+@keyframes slide-in {
+  0% {
+    transform: scale(1) translateX(-100%);
   }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1) translateX(0%);
+  }
+}
 </style>

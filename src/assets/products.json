@@ -404,7 +404,8 @@
       "topimg": "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/29bd729696d74fce839fa98f00bf6bef_9366/Swift_Run_Shoes_Pink_CG6924_06_standard.jpg",
       "title": "SWIFT RUN SHOES",
       "price": "90",
-      "color": "pink"
+      "color": "pink",
+      "brand": "Adidas"
     },
     {
       "id": "w17",
@@ -415,7 +416,8 @@
       "topimg": "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/99d01518d86d42e88221a86b010ed023_9366/Swift_Run_Primeknit_Shoes_Purple_CQ2896_03_standard.jpg",
       "title": "SWIFT RUN SHOES",
       "price": "90",
-      "color": "purple"
+      "color": "purple",
+      "brand": "Adidas"
     },
     {
       "id": "w18",
@@ -426,7 +428,8 @@
       "topimg": "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/4d569f20cad9480d9d6ca89601361f1c_9366/Swift_Run_Summer_Shoes_Orange_CQ3086_06_standard.jpg",
       "title": "SWIFT RUN SHOES",
       "price": "90",
-      "color": "orange"
+      "color": "orange",
+      "brand": "Adidas"
     },
     {
       "id": "w19",
@@ -437,7 +440,8 @@
       "topimg": "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/f1d028643108499b9999a87f00d75346_9366/Swift_Run_Primeknit_Shoes_Beige_CQ2890_06_standard.jpg",
       "title": "SWIFT RUN SHOES",
       "price": "90",
-      "color": "beige"
+      "color": "beige",
+      "brand": "Adidas"
     }
   ]
 }

@@ -1,9 +1,14 @@
 <template>
   <div class="row">
-    <div class="card medium col l4 s6 m6" v-for="shoe in mens" :key="shoe.id">
+    <div
+      class="card medium col l4 s6 m6"
+      v-for="shoe in mens"
+      :key="shoe.id"
+      v-show="brand.toLowerCase() === shoe.brand.toLowerCase()"
+    >
       <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" :src="shoe.img">
-        <img class :src="shoe.hoverimg">
+        <img class="activator front" :src="shoe.img">
+        <img class="front-hover" :src="shoe.hoverimg">
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">
@@ -34,23 +39,43 @@ export default {
   data() {
     return {
       mens: [],
-      womens: []
+      womens: [],
+      brand: null
     };
   },
   mounted() {
-    let ref = db.ref("mens");
-    const self = this;
-    ref.on(
-      "value",
-      function(snapshot) {
-        console.log(snapshot.val(), "Mens");
-        var products = snapshot.val();
-        self.mens = products;
-      },
-      function(error) {
-        console.log("Error: " + error.code);
+    console.log(this, "this mounted");
+    console.log(this.$route.params, "this mounted path");
+    const category = this.$route.params.category;
+    const brand = this.$route.params.brand;
+    this.brand = brand;
+    console.log("brand", brand);
+    const getProducts = category => {
+      let ref = db.ref(category);
+      const self = this;
+      if (!localStorage.getItem(category)) {
+        ref.on(
+          "value",
+          function(snapshot) {
+            var products = snapshot.val();
+            localStorage.setItem(category, JSON.stringify(products));
+            self[category] = products;
+          },
+          function(error) {
+            console.log("Error: " + error.code);
+          }
+        );
+      } else {
+        self.mens = JSON.parse(localStorage.getItem(category));
+        console.log("get from storage", self.mens);
       }
-    );
+    };
+    if (category == "all") {
+      getProducts("mens");
+      getProducts("womens");
+    } else {
+      getProducts(category);
+    }
   },
   beforeRouteEnter(to, from, next) {
     // let ref = db.ref("mens");
@@ -124,5 +149,16 @@ button.btn.right.cart {
 }
 .card .card-content {
   padding: 10px;
+}
+.card-image .front,
+.card-image .front-hover {
+  will-change: transform;
+  transition: 0.4s ease-in-out;
+}
+.card-image:hover .front {
+  transform: translateY(100%);
+}
+.card-image:hover .front-hover {
+  transform: translateY(-100%);
 }
 </style>
