@@ -5,6 +5,9 @@ import ViewEmployee from "@/components/ViewEmployee";
 import NewEmployee from "@/components/NewEmployee";
 import EditEmployee from "@/components/EditEmployee";
 import ProductPage from "@/components/ProductPage";
+import AboutPage from "@/components/AboutPage";
+import ContactPage from "@/components/ContactPage";
+import ShoppingCart from "@/components/ShoppingCart";
 
 Vue.use(Router);
 
@@ -27,6 +30,16 @@ export default new Router({
       path: "/new",
       name: "new-employee",
       component: NewEmployee
+    },
+    {
+      path: "/about",
+      name: "about-us",
+      component: AboutPage
+    },
+    {
+      path: "/contact",
+      name: "contact-us",
+      component: ContactPage
     },
     {
       path: "/:employee_id",

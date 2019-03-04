@@ -9,10 +9,7 @@
           >Find the best brands and latest products at great prices.</p>
           <ul>
             <li>
-              <router-link
-                class="grey-text text-lighten-3"
-                v-bind:to="{ name: 'contact-page'}"
-              >Contact us</router-link>
+              <router-link class="grey-text text-lighten-3" to="/contact">Contact us</router-link>
             </li>
             <li>
               <router-link
