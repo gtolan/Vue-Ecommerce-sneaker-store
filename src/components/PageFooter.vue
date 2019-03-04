@@ -1,7 +1,7 @@
 <template>
   <footer class="page-footer black">
     <div class="container">
-      <div class="row">
+      <div class="row margin-b">
         <div class="col l6 s12">
           <h5 class="white-text">Sneaker Store</h5>
           <p
@@ -12,10 +12,7 @@
               <router-link class="grey-text text-lighten-3" to="/contact">Contact us</router-link>
             </li>
             <li>
-              <router-link
-                class="grey-text text-lighten-3"
-                v-bind:to="{ name: 'about-page'}"
-              >About us</router-link>
+              <router-link class="grey-text text-lighten-3" to="/about">About us</router-link>
             </li>
           </ul>
         </div>
@@ -65,5 +62,8 @@ footer.page-footer {
   color: #fff;
   background-color: #ee6e73;
   width: 100vw;
+}
+.margin-b {
+  margin-bottom: 0px;
 }
 </style>

@@ -1,9 +1,9 @@
  <template>
   <nav class="transparent">
     <div class="nav-wrapper container">
-      <a href="#!" class="brand-logo" :class="{slategray : slate}">
+      <router-link to="/" class="brand-logo" :class="{slategray : slate}">
         <i class="material-icons">cloud</i>Sneaker's
-      </a>
+      </router-link>
       <ul class="right hide-on-med-and-down">
         <li>
           <a href="shopping-cart" class="cart-btn" :class="{slategray : slate}">
