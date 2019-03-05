@@ -29,7 +29,7 @@ export default {
       let accum = 0;
       if (this.cartItems.length > 0) {
         var total = this.cartItems.reduce((a, b) => ({
-          qty: Number.parseInt(a.qty + b.qty)
+          qty: Number.parseInt(a.qty) + Number.parseInt(b.qty)
         }));
         console.log(total, "red total");
         return total.qty;

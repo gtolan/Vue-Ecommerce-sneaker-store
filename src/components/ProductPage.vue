@@ -15,14 +15,12 @@
               <i class="material-icons">filter_drama</i>Colours
             </li>
             <li class="collection-item collection-body colors">
-              <button class="btn btn-small white col s4">White</button>
-              <button class="btn btn-small black col s4">Black</button>
-              <button class="btn btn-small blue col s4">Blue</button>
-              <button class="btn btn-small pink col s4">Pink</button>
-              <button class="btn btn-small green col s4">Green</button>
-              <button class="btn btn-small red col s4">Red</button>
-              <button class="btn btn-small navy col s4">Navy</button>
-              <button class="btn btn-small yellow col s4">Yellow</button>
+              <button
+                v-for="(color, index) in colorsList"
+                :key="index"
+                :class="color"
+                class="btn-floating btn-small waves-effect waves-light margin-5"
+              ></button>
             </li>
             <li class="collection-header">
               <i class="material-icons">filter_drama</i>Sizes
@@ -63,7 +61,10 @@ export default {
   name: "ProductPage",
   components: { PageFooter, ProductSlider, ProductList },
   data() {
-    return { cartItems: [] };
+    return {
+      cartItems: [],
+      colorsList: [white, black, blue, pink, green, red, navy, yellow, grey]
+    };
   },
   methods: {
     mounted() {
@@ -110,5 +111,8 @@ h2.header {
 }
 .row.bottom-page {
   margin-bottom: 0px;
+}
+.margin-5 {
+  margin: 5px;
 }
 </style>

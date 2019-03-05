@@ -7,7 +7,6 @@
     </div>
     <div class="card col s6">
       <img :src="chosenImage" class="main-image shoe-image">
-      {{largeImage}}
     </div>
   </div>
 </template>

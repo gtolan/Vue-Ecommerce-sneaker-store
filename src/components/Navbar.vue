@@ -65,7 +65,10 @@ export default {
       console.log(this.$route, "route updated");
       if (
         this.$route.path.startsWith("/products") ||
-        this.$route.path.startsWith("/cart")
+        this.$route.path.startsWith("/cart") ||
+        this.$route.path.startsWith("/all") ||
+        this.$route.path.startsWith("/mens") ||
+        this.$route.path.startsWith("/womens")
       ) {
         this.slate = true;
       } else {
