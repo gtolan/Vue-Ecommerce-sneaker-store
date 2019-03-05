@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar/>
     <transition name="slide">
-      <router-view/>
+      <router-view :cart="cartItems"/>
     </transition>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      cart: []
+      cartItems: []
     };
   },
   methods: {

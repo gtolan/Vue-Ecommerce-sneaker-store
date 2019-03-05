@@ -8,7 +8,10 @@
         <li>
           <router-link to="/cart" class="cart-btn" :class="{slategray : slate}">
             <i class="material-icons">shopping_cart</i>
-            <div class="cart-preview">{{cartItems.length}} items in cart</div>
+            <div class="cart-preview">
+              <p>{{cartItems.length | itemAmount }} in cart</p>
+              <button class="btn btn-small">View Cart</button>
+            </div>
           </router-link>
         </li>
         <li>
@@ -34,6 +37,12 @@ export default {
       slate: false,
       cartItems: []
     };
+  },
+  filters: {
+    itemAmount: val => {
+      console.log("filter val", val);
+      return val == 1 ? val + " Item" : val + " Items";
+    }
   },
   mounted() {
     this.changeNav();
@@ -97,10 +106,21 @@ div.nav-wrapper {
   transition: 0.4s ease-in-out;
   background-color: #15324e38;
   color: white;
-  padding: 1rem;
+
   border-bottom-left-radius: 1rem;
   border: 1px solid white;
   border-bottom-right-radius: 1rem;
+}
+.cart-preview p {
+  padding: 0rem 1rem;
+  margin: 0px;
+}
+.cart-preview button {
+  position: relative;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-bottom: 0px;
+  vertical-align: middle;
 }
 
 .cart-btn:hover .cart-preview {
