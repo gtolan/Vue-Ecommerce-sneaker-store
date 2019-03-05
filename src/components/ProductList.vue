@@ -4,7 +4,8 @@
       class="card medium col l4 s6 m6"
       v-for="shoe in allShoes"
       :key="shoe.id"
-      v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all'"
+      v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all' ||
+      showItems.includes(shoe.color)"
     >
       <div class="card-image waves-effect waves-block waves-light">
         <router-link
@@ -16,7 +17,7 @@
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">
-          {{shoe.title}}
+          {{shoe.title}}{{shoe.color}}
           <i class="material-icons right">more_vert</i>
         </span>
         <p>
@@ -53,7 +54,9 @@ export default {
       brand: null
     };
   },
+  props: ["showItems"],
   mounted() {
+    console.log(this.showItems, "FO")
     const category = this.$route.params.category;
     const brand = this.$route.params.brand;
     this.brand = brand;

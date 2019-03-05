@@ -5,25 +5,32 @@
         <aside class="col l3 m4 s12">
           <ul class="collection with-header">
             <li class="collection-header">
-              <i class="material-icons">filter_drama</i>Brands
+              <p>
+                <i class="material-icons">filter_drama</i>Brands
+              </p>
             </li>
             <li class="collection-item collection-body">
               <button class="btn btn-small blue col s6">Adidas</button>
               <button class="btn btn-small blue col s6">Nike</button>
             </li>
             <li class="collection-header">
-              <i class="material-icons">filter_drama</i>Colours
+              <p>
+                <i class="material-icons">filter_drama</i>Colours
+              </p>
             </li>
             <li class="collection-item collection-body colors">
               <button
                 v-for="(color, index) in colorsList"
                 :key="index"
                 :class="color"
-                class="btn-floating btn-small waves-effect waves-light margin-5"
+                @click="filterByColor(color)"
+                class="btn-floating btn-small waves-effect waves-light margin-5 color-button"
               ></button>
             </li>
             <li class="collection-header">
-              <i class="material-icons">filter_drama</i>Sizes
+              <p>
+                <i class="material-icons">filter_drama</i>Sizes
+              </p>
             </li>
             <li class="collection-item collection-body sizes">
               <button class="btn btn-small white col s4">5</button>
@@ -39,7 +46,7 @@
         </aside>
         <div class="col l9 m8 s12">
           <h2 class="header">Product Page</h2>
-          <ProductList v-on:handleAddToCart="test"/>
+          <ProductList :showItems="filterOptions"/>
         </div>
       </div>
       <div class="row bottom-page">
@@ -63,15 +70,50 @@ export default {
   data() {
     return {
       cartItems: [],
-      colorsList: [white, black, blue, pink, green, red, navy, yellow, grey]
+      filterOptions: [
+        "white",
+        "black",
+        "blue",
+        "pink",
+        "green",
+        "red",
+        "navy",
+        "yellow",
+        "grey"
+      ],
+      colorsList: [
+        "white",
+        "black",
+        "blue",
+        "pink",
+        "green",
+        "red",
+        "navy",
+        "yellow",
+        "grey"
+      ]
     };
   },
   methods: {
-    mounted() {
-      //   EventBus.$on("DATA_PUBLISHED", payload => {
-      //     console.log("payload recieved", payload);
-      //   });
+      filterByColor(color){
+          this.filterOptions = this.colorsList;
+          let isSameColor = function(col){
+              return col === color;
+          }
+          this.filterOptions = this.filterOptions.filter(isSameColor)
+      },
+    handleAddToCart(value, event) {
+      let button = event.target;
+      button.innerText = "Added to Cart!";
+      button.classList.add("addedToCart");
+      EventBus.$emit("addToCart", value);
+      this.removeButtonChanges(button);
     }
+  },
+  mounted() {
+    //   EventBus.$on("DATA_PUBLISHED", payload => {
+    //     console.log("payload recieved", payload);
+    //   });
   }
 };
 </script>
@@ -114,5 +156,16 @@ h2.header {
 }
 .margin-5 {
   margin: 5px;
+}
+.color-button {
+  will-change: transform;
+  transition: 0.4s ease-in-out;
+}
+.color-button:hover {
+  transform: scale(1.3);
+}
+.collection-header p i {
+  vertical-align: bottom;
+  margin-right: 7px;
 }
 </style>

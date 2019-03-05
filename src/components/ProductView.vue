@@ -1,36 +1,58 @@
 <template>
-  <div class="product-view row">
-    <div class="card col s6">
-      <div class="card col s6" v-for="(href, index) in allImages" :key="index">
-        <img :src="href" class="side-image shoe-image" @click="updateLargeImage(href)">
+  <section>
+    <div class="product-view row">
+      <div class="col s6">
+        <div class="card col s6" v-for="(href, index) in allImages" :key="index">
+          <img :src="href" class="side-image shoe-image" @click="updateLargeImage(href)">
+        </div>
+      </div>
+      <div class="card col s6">
+        <img :src="chosenImage" class="main-image shoe-image">
+        <h5 class="col s10">{{shoe.title}}</h5>
+        <h5 class="col s2">{{shoe.price | euros}}</h5>
+        <div class="row">
+          <select class="sizes input-field col s6">
+            <option value disabled selected>Choose your size</option>
+            <option v-for="(size, index) in sizes" :key="index" value="size">{{size}}</option>
+          </select>
+          <button
+            @click="handleAddToCart(shoe, $event)"
+            class="btn right cart waves-effect waves-light btn-medium h-3 blue"
+          >Add to Cart</button>
+        </div>
       </div>
     </div>
-    <div class="card col s6">
-      <img :src="chosenImage" class="main-image shoe-image">
-    </div>
-  </div>
+    <PageFooter/>
+  </section>
 </template>
 
 <script>
+import EventBus from "../eventBus";
 import db from "./firebaseInit";
+import PageFooter from "./PageFooter";
 export default {
   name: "ProductView",
   data() {
     return {
       mens: [],
       womens: [],
-      id: null,
-      img: null,
-      hoverimg: null,
-      backimg: null,
-      frontimg: null,
-      topimg: null,
-      title: null,
-      price: null,
-      color: null,
+      sizes: [4, 5, 6, 7, 8, 9, 10, 11, 12],
+      shoe: {
+        img: null,
+        id: null,
+        img: null,
+        hoverimg: null,
+        backimg: null,
+        frontimg: null,
+        topimg: null,
+        title: null,
+        price: null,
+        color: null
+      },
       largeImage: null
     };
   },
+  components: { PageFooter },
   mounted() {
     console.log("");
     this.getProductData();
@@ -47,19 +69,46 @@ export default {
       return [...this.mens, ...this.womens];
     },
     allImages: function() {
+      console.log(this.shoe.img, "img", this.shoe);
       return [
-        this.img,
-        this.hoverimg,
-        this.backimg,
-        this.frontimg,
-        this.topimg
+        this.shoe.img,
+        this.shoe.hoverimg,
+        this.shoe.backimg,
+        this.shoe.frontimg,
+        this.shoe.topimg
       ];
     },
     chosenImage: function() {
       return this.largeImage;
     }
   },
+  filters: {
+    euros: function(value) {
+      if (!value) return "";
+      return "€" + value;
+    }
+  },
   methods: {
+    handleAddToCart(value, event) {
+      let button = event.target;
+      button.innerText = "Added to Cart!";
+      button.classList.add("addedToCart");
+      EventBus.$emit("addToCart", value);
+      this.removeButtonChanges(button);
+    },
+    removeButtonChanges(button) {
+      let counter = 150;
+      function step() {
+        counter--;
+        if (counter > 0) {
+          window.requestAnimationFrame(step);
+        } else {
+          button.innerText = "Add to Cart";
+          button.classList.remove("addedToCart");
+        }
+      }
+      window.requestAnimationFrame(step);
+    },
     updateLargeImage(href) {
       console.log("update-large,", href, this.largeImage, "before");
       document.querySelector(".main-image.shoe-image").src = href;
@@ -67,16 +116,16 @@ export default {
     matchProductId(products, product_id) {
       products.forEach(prod => {
         if (prod.id === product_id) {
-          this.id = prod.id;
           this.largeImage = prod.img;
-          this.img = prod.img;
-          this.hoverimg = prod.hoverimg;
-          this.backimg = prod.backimg;
-          this.frontimg = prod.frontimg;
-          this.topimg = prod.topimg;
-          this.title = prod.title;
-          this.price = prod.prie;
-          this.color = prod.color;
+          this.shoe.id = prod.id;
+          this.shoe.img = prod.img;
+          this.shoe.hoverimg = prod.hoverimg;
+          this.shoe.backimg = prod.backimg;
+          this.shoe.frontimg = prod.frontimg;
+          this.shoe.topimg = prod.topimg;
+          this.shoe.title = prod.title;
+          this.shoe.price = prod.price;
+          this.shoe.color = prod.color;
         }
       });
     },
@@ -119,5 +168,24 @@ export default {
 .shoe-image {
   height: 100%;
   width: 100%;
+}
+button.addedToCart {
+  background-color: #1463a2 !important;
+}
+select.sizes {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #f2f2f2;
+  border-radius: 2px;
+  height: 3rem;
+  opacity: 1;
+  pointer-events: all;
+  display: block;
+  margin-top: 0px;
+  cursor: pointer;
+}
+button.h-3 {
+  height: 3rem;
 }
 </style>
