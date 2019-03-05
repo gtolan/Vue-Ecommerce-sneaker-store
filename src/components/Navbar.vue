@@ -6,10 +6,10 @@
       </router-link>
       <ul class="right hide-on-med-and-down">
         <li>
-          <a href="shopping-cart" class="cart-btn" :class="{slategray : slate}">
+          <router-link to="/cart" class="cart-btn" :class="{slategray : slate}">
             <i class="material-icons">shopping_cart</i>
-            <div class="cart-preview">0 items in cart</div>
-          </a>
+            <div class="cart-preview">{{cartItems.length}} items in cart</div>
+          </router-link>
         </li>
         <li>
           <a href="home" :class="{slategray : slate}">
@@ -26,15 +26,21 @@
   </nav>
 </template>
   <script>
+import EventBus from "../eventBus";
 export default {
   name: "Navbar",
   data() {
     return {
-      slate: false
+      slate: false,
+      cartItems: []
     };
   },
   mounted() {
     this.changeNav();
+    EventBus.$on("addToCart", value => {
+      console.log("payload recieved app", value);
+      this.addToCart(value);
+    });
   },
   updated() {
     this.changeNav();
@@ -46,11 +52,29 @@ export default {
   methods: {
     changeNav() {
       console.log(this.$route, "route updated");
-      if (this.$route.path.startsWith("/products")) {
+      if (
+        this.$route.path.startsWith("/products") ||
+        this.$route.path.startsWith("/cart")
+      ) {
         this.slate = true;
       } else {
         this.slate = false;
       }
+    },
+    addToCart(itemToAdd) {
+      console.log(itemToAdd, "adding to cart");
+      let inBasket = false;
+      this.cartItems.forEach(item => {
+        if (item.id === itemToAdd.id) {
+          inBasket = true;
+          item.qty += itemToAdd.qty;
+        }
+      });
+
+      if (inBasket === false) {
+        this.cartItems.push(itemToAdd);
+      }
+      itemToAdd.qty = 1;
     }
   }
 };

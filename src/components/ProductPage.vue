@@ -41,7 +41,7 @@
         </aside>
         <div class="col l9 m8 s12">
           <h2 class="header">Product Page</h2>
-          <ProductList/>
+          <ProductList v-on:handleAddToCart="test"/>
         </div>
       </div>
       <div class="row bottom-page">
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import EventBus from "../eventBus";
 import db from "./firebaseInit";
 import PageFooter from "./PageFooter";
 import ProductSlider from "./ProductSlider";
@@ -62,57 +63,32 @@ export default {
   name: "ProductPage",
   components: { PageFooter, ProductSlider, ProductList },
   data() {
-    return {};
+    return { cartItems: [] };
+  },
+  methods: {
+    test() {
+      console.log("test pp hit");
+    },
+    addToCart(itemToAdd) {
+      console.log(itemToAdd, "adding to cart");
+      let inBasket = false;
+      this.cartItems.forEach(item => {
+        if (item.id === itemToAdd.id) {
+          inBasket = true;
+          item.qty += itemToAdd.qty;
+        }
+      });
+      if (inBasket === false) {
+        this.cartItems.push(itemToAdd);
+      }
+      itemToAdd.qty = 1;
+    },
+    mounted() {
+      EventBus.$on("DATA_PUBLISHED", payload => {
+        console.log("payload recieved", payload);
+      });
+    }
   }
-  //   beforeRouteEnter(to, from, next) {
-  // let ref = db.ref("mens");
-  // console.log("db", db);
-  // ref.on(
-  //   "value",
-  //   function(snapshot) {
-  //     console.log(snapshot.val(), "Mens");
-  //     var products = snapshot.val();
-  //     next(vm => {
-  //       vm.mens = products;
-  //     });
-  //   },
-  //   function(error) {
-  //     console.log("Error: " + error.code);
-  //   }
-  // );
-  //   db.collection('employees').where('employee_id', '==', to.params.employee_id).get().then((querySnapshot) => {
-  //     querySnapshot.forEach((doc) => {
-  //       next(vm => {
-  //         vm.employee_id = doc.data().employee_id
-  //         vm.name = doc.data().name
-  //         vm.dept = doc.data().dept
-  //         vm.position = doc.data().position
-  //       })
-  //     })
-  //   })
-  //   },
-  //   watch: {
-  //     $route: "fetchData"
-  //   },
-  //   methods: {
-  //     fetchData() {
-  //       //   console.log("db", db);
-  //       //   let ref = db.ref("mens");
-  //       //   return ref.on(
-  //       //     "value",
-  //       //     function(snapshot) {
-  //       //       console.log(snapshot.val(), "Mens");
-  //       //       var products = snapshot.val();
-  //       //       next(vm => {
-  //       //         vm.mens = products;
-  //       //       });
-  //       //     },
-  //       //     function(error) {
-  //       //       console.log("Error: " + error.code);
-  //       //     }
-  //       //   );
-  //     }
-  //   }
 };
 </script>
 

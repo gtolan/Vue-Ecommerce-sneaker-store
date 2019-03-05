@@ -8,7 +8,7 @@
 </template>
 
 <script>
-2;
+import EventBus from "./eventBus";
 import Navbar from "./components/Navbar";
 import NewEmployee from "./components/NewEmployee";
 // import PageFooter from './components/PageFooter';
@@ -18,6 +18,33 @@ export default {
     Navbar,
     NewEmployee
     // PageFooter
+  },
+  data() {
+    return {
+      cart: []
+    };
+  },
+  methods: {
+    addToCart(itemToAdd) {
+      console.log(itemToAdd, "adding to cart");
+      let inBasket = false;
+      this.cartItems.forEach(item => {
+        if (item.id === itemToAdd.id) {
+          inBasket = true;
+          item.qty += itemToAdd.qty;
+        }
+      });
+      if (inBasket === false) {
+        this.cartItems.push(itemToAdd);
+      }
+      itemToAdd.qty = 1;
+    }
+  },
+  mounted() {
+    EventBus.$on("addToCart", value => {
+      console.log("payload recieved app", value);
+      this.addToCart(value);
+    });
   }
 };
 </script>

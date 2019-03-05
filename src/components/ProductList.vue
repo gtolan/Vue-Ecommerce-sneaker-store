@@ -17,7 +17,10 @@
         </span>
         <p>
           <a class="shoe-price" href="#">{{shoe.price | euros}}</a>
-          <button class="btn right cart waves-effect waves-light btn-small blue">Add to Cart</button>
+          <button
+            @click="handleAddToCart(shoe)"
+            class="btn right cart waves-effect waves-light btn-small blue"
+          >Add to Cart</button>
         </p>
       </div>
       <div class="card-reveal">
@@ -36,6 +39,7 @@
 
 <script>
 import db from "./firebaseInit";
+import EventBus from "../eventBus";
 export default {
   name: "ProductList",
   data() {
@@ -110,6 +114,13 @@ export default {
     $route: "fetchData"
   },
   methods: {
+    handleAddToCart(value) {
+      console.log("handle-add", value);
+      EventBus.$emit("addToCart", value);
+      //   this.$emit("addToCart", value);
+      //   this.$emit("test");
+      //   this.$emit("test2");
+    },
     fetchData() {
       console.log("db", db);
       let ref = db.ref("mens");

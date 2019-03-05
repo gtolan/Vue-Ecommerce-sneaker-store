@@ -37,6 +37,11 @@ export default new Router({
       component: AboutPage
     },
     {
+      path: "/cart",
+      name: "shopping-cart",
+      component: ShoppingCart
+    },
+    {
       path: "/contact",
       name: "contact-us",
       component: ContactPage
