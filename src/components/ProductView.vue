@@ -2,12 +2,12 @@
   <div class="product-view row">
     <div class="card col s6">
       <div class="card col s6" v-for="(href, index) in allImages" :key="index">
-        <img :src="href" class="side-image shoe-image">
-        {{href}}
+        <img :src="href" class="side-image shoe-image" @click="updateLargeImage(href)">
       </div>
     </div>
     <div class="card col s6">
-      <img :src="largeImage " class="main-image shoe-image">
+      <img :src="chosenImage" class="main-image shoe-image">
+      {{largeImage}}
     </div>
   </div>
 </template>
@@ -29,8 +29,7 @@ export default {
       title: null,
       price: null,
       color: null,
-      largeImage: null,
-      allImages: []
+      largeImage: null
     };
   },
   mounted() {
@@ -47,9 +46,25 @@ export default {
   computed: {
     allShoes: function() {
       return [...this.mens, ...this.womens];
+    },
+    allImages: function() {
+      return [
+        this.img,
+        this.hoverimg,
+        this.backimg,
+        this.frontimg,
+        this.topimg
+      ];
+    },
+    chosenImage: function() {
+      return this.largeImage;
     }
   },
   methods: {
+    updateLargeImage(href) {
+      console.log("update-large,", href, this.largeImage, "before");
+      document.querySelector(".main-image.shoe-image").src = href;
+    },
     matchProductId(products, product_id) {
       products.forEach(prod => {
         if (prod.id === product_id) {
@@ -63,13 +78,6 @@ export default {
           this.title = prod.title;
           this.price = prod.prie;
           this.color = prod.color;
-          this.allImages = [
-            prod.img,
-            prod.hoverimg,
-            prod.backimg,
-            prod.frontimg,
-            prod.topimg
-          ];
         }
       });
     },
