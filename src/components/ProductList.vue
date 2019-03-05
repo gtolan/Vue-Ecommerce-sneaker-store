@@ -2,7 +2,7 @@
   <div class="row">
     <div
       class="card medium col l4 s6 m6"
-      v-for="shoe in mens"
+      v-for="shoe in allShoes"
       :key="shoe.id"
       v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all'"
     >
@@ -18,7 +18,7 @@
         <p>
           <a class="shoe-price" href="#">{{shoe.price | euros}}</a>
           <button
-            @click="handleAddToCart(shoe)"
+            @click="handleAddToCart(shoe, $event)"
             class="btn right cart waves-effect waves-light btn-small blue"
           >Add to Cart</button>
         </p>
@@ -50,12 +50,9 @@ export default {
     };
   },
   mounted() {
-    console.log(this, "this mounted");
-    console.log(this.$route.params, "this mounted path");
     const category = this.$route.params.category;
     const brand = this.$route.params.brand;
     this.brand = brand;
-    console.log("brand", brand);
     const getProducts = category => {
       let ref = db.ref(category);
       const self = this;
@@ -72,7 +69,7 @@ export default {
           }
         );
       } else {
-        self.mens = JSON.parse(localStorage.getItem(category));
+        self[category] = JSON.parse(localStorage.getItem(category));
         console.log("get from storage", self.mens);
       }
     };
@@ -83,43 +80,35 @@ export default {
       getProducts(category);
     }
   },
-  beforeRouteEnter(to, from, next) {
-    // let ref = db.ref("mens");
-    // console.log("db", db);
-    // ref.on(
-    //   "value",
-    //   function(snapshot) {
-    //     console.log(snapshot.val(), "Mens");
-    //     var products = snapshot.val();
-    //     next(vm => {
-    //       vm.mens = products;
-    //     });
-    //   },
-    //   function(error) {
-    //     console.log("Error: " + error.code);
-    //   }
-    // );
-    //   db.collection('employees').where('employee_id', '==', to.params.employee_id).get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //       next(vm => {
-    //         vm.employee_id = doc.data().employee_id
-    //         vm.name = doc.data().name
-    //         vm.dept = doc.data().dept
-    //         vm.position = doc.data().position
-    //       })
-    //     })
-    //   })
+  computed: {
+    allShoes: function() {
+      return [...this.mens, ...this.womens];
+    }
   },
+  beforeRouteEnter(to, from, next) {},
   watch: {
     $route: "fetchData"
   },
   methods: {
-    handleAddToCart(value) {
-      console.log("handle-add", value);
+    handleAddToCart(value, event) {
+      let button = event.target;
+      button.innerText = "Added to Cart!";
+      button.classList.add("addedToCart");
       EventBus.$emit("addToCart", value);
-      //   this.$emit("addToCart", value);
-      //   this.$emit("test");
-      //   this.$emit("test2");
+      this.removeButtonChanges(button);
+    },
+    removeButtonChanges(button) {
+      let counter = 150;
+      function step() {
+        counter--;
+        if (counter > 0) {
+          window.requestAnimationFrame(step);
+        } else {
+          button.innerText = "Add to Cart";
+          button.classList.remove("addedToCart");
+        }
+      }
+      window.requestAnimationFrame(step);
     },
     fetchData() {
       console.log("db", db);
@@ -176,5 +165,8 @@ button.btn.right.cart {
 }
 .card-image:hover .front-hover {
   transform: translateY(-100%);
+}
+button.addedToCart {
+  background-color: #1463a2 !important;
 }
 </style>

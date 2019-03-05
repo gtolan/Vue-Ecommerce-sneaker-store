@@ -9,7 +9,7 @@
           <router-link to="/cart" class="cart-btn" :class="{slategray : slate}">
             <i class="material-icons">shopping_cart</i>
             <div class="cart-preview">
-              <p>{{cartItems.length | itemAmount }} in cart</p>
+              <p>{{cart.length | itemAmount }} in cart ({{totalQty}})</p>
               <button class="btn btn-small">View Cart</button>
             </div>
           </router-link>
@@ -38,18 +38,20 @@ export default {
       cartItems: []
     };
   },
+  props: ["cart", "totalQty"],
   filters: {
     itemAmount: val => {
-      console.log("filter val", val);
       return val == 1 ? val + " Item" : val + " Items";
     }
   },
   mounted() {
-    this.changeNav();
-    EventBus.$on("addToCart", value => {
-      console.log("payload recieved app", value);
-      this.addToCart(value);
-    });
+    // this.changeNav();
+    // EventBus.$on("addToCart", value => {
+    //   this.addToCart(value);
+    // });
+    // EventBus.$on("deleteItem", value => {
+    //   this.deleteItem(value);
+    // });
   },
   updated() {
     this.changeNav();
@@ -84,6 +86,15 @@ export default {
         this.cartItems.push(itemToAdd);
       }
       itemToAdd.qty = 1;
+    },
+    deleteItem(itemToDelete) {
+      function removeItem(val) {
+        return val.id !== itemToDelete.id;
+      }
+      console.log("cart", this.cart);
+      var removed = this.cartItems.filter(removeItem);
+      console.log(removed, "removed");
+      this.cartItems = removed;
     }
   }
 };
@@ -105,11 +116,13 @@ div.nav-wrapper {
   transform: scale(0.5) translateY(-100px);
   transition: 0.4s ease-in-out;
   background-color: #15324e38;
+  background: linear-gradient(#000000c4, #15324e38);
   color: white;
-
   border-bottom-left-radius: 1rem;
   border: 1px solid white;
   border-bottom-right-radius: 1rem;
+  width: 12rem;
+  text-align: center;
 }
 .cart-preview p {
   padding: 0rem 1rem;

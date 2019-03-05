@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar/>
+    <Navbar :cart="cartItems" :totalQty="quantity"/>
     <transition name="slide">
       <router-view :cart="cartItems"/>
     </transition>
@@ -24,10 +24,23 @@ export default {
       cartItems: []
     };
   },
+  computed: {
+    quantity: function() {
+      let accum = 0;
+      if (this.cartItems.length > 0) {
+        var total = this.cartItems.reduce((a, b) => ({
+          qty: Number.parseInt(a.qty + b.qty)
+        }));
+        console.log(total, "red total");
+        return total.qty;
+      }
+    }
+  },
   methods: {
     addToCart(itemToAdd) {
       console.log(itemToAdd, "adding to cart");
       let inBasket = false;
+      itemToAdd.qty = 1;
       this.cartItems.forEach(item => {
         if (item.id === itemToAdd.id) {
           inBasket = true;
@@ -37,13 +50,41 @@ export default {
       if (inBasket === false) {
         this.cartItems.push(itemToAdd);
       }
-      itemToAdd.qty = 1;
+    },
+    deleteItem(itemToDelete) {
+      function removeItem(val) {
+        return val.id !== itemToDelete.id;
+      }
+      console.log("cart", this.cart);
+      var removed = this.cartItems.filter(removeItem);
+      console.log(removed, "removed");
+      this.cartItems = removed;
+    },
+    alterQty(id, amount) {
+      console.log("alter QTy in cart", id, amount);
+      function itemToAlter(val) {
+        if (val.id == id) {
+          val.qty = amount;
+        }
+        return val;
+      }
+      console.log("cart", this.cartItems);
+      var updated = this.cartItems.map(itemToAlter);
+      console.log("updated", updated);
+      this.cartItems = updated;
     }
   },
   mounted() {
     EventBus.$on("addToCart", value => {
       console.log("payload recieved app", value);
       this.addToCart(value);
+    });
+    EventBus.$on("deleteItem", value => {
+      console.log("payload recieved app", value);
+      this.deleteItem(value);
+    });
+    EventBus.$on("alterQty", (id, amount) => {
+      this.alterQty(id, amount);
     });
   }
 };

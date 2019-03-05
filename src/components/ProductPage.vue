@@ -66,27 +66,10 @@ export default {
     return { cartItems: [] };
   },
   methods: {
-    test() {
-      console.log("test pp hit");
-    },
-    addToCart(itemToAdd) {
-      console.log(itemToAdd, "adding to cart");
-      let inBasket = false;
-      this.cartItems.forEach(item => {
-        if (item.id === itemToAdd.id) {
-          inBasket = true;
-          item.qty += itemToAdd.qty;
-        }
-      });
-      if (inBasket === false) {
-        this.cartItems.push(itemToAdd);
-      }
-      itemToAdd.qty = 1;
-    },
     mounted() {
-      EventBus.$on("DATA_PUBLISHED", payload => {
-        console.log("payload recieved", payload);
-      });
+      //   EventBus.$on("DATA_PUBLISHED", payload => {
+      //     console.log("payload recieved", payload);
+      //   });
     }
   }
 };
