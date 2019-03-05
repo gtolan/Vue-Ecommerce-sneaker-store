@@ -7,8 +7,12 @@
       v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all'"
     >
       <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator front" :src="shoe.img">
-        <img class="front-hover" :src="shoe.hoverimg">
+        <router-link
+          v-bind:to="{ name: 'product-view', params: { product_id: shoe.id, category:pathCategory }}"
+        >
+          <img class="activator front" :src="shoe.img">
+          <img class="front-hover" :src="shoe.hoverimg">
+        </router-link>
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">
@@ -83,6 +87,11 @@ export default {
   computed: {
     allShoes: function() {
       return [...this.mens, ...this.womens];
+    },
+    pathCategory: function() {
+      console.log(this.$route.params.category, "route,pathcat");
+      let c = this.$route.params.category;
+      return c;
     }
   },
   beforeRouteEnter(to, from, next) {},

@@ -5,6 +5,7 @@ import ViewEmployee from "@/components/ViewEmployee";
 import NewEmployee from "@/components/NewEmployee";
 import EditEmployee from "@/components/EditEmployee";
 import ProductPage from "@/components/ProductPage";
+import ProductView from "@/components/ProductView";
 import AboutPage from "@/components/AboutPage";
 import ContactPage from "@/components/ContactPage";
 import ShoppingCart from "@/components/ShoppingCart";
@@ -50,6 +51,11 @@ export default new Router({
       path: "/:employee_id",
       name: "view-employee",
       component: ViewEmployee
+    },
+    {
+      path: "/:category/:product_id",
+      name: "product-view",
+      component: ProductView
     },
     {
       path: "/edit/:employee_id",
