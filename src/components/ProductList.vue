@@ -4,8 +4,8 @@
       class="card medium col l4 s6 m6"
       v-for="shoe in allShoes"
       :key="shoe.id"
-      v-show="brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all' ||
-      showItems.includes(shoe.color)"
+      v-if="(brand.toLowerCase() === shoe.brand.toLowerCase() || brand == 'all') &&
+      colorOption.includes(shoe.color)"
     >
       <div class="card-image waves-effect waves-block waves-light">
         <router-link
@@ -17,7 +17,8 @@
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">
-          {{shoe.title}}{{shoe.color}}
+       <span class="color-sample" :style="{backgroundColor:shoe.color}"></span>
+       {{shoe.title}}
           <i class="material-icons right">more_vert</i>
         </span>
         <p>
@@ -31,7 +32,7 @@
       <div class="card-reveal">
         <span class="card-title grey-text text-darken-4">
           {{shoe.title}}
-          <i class="material-icons right">close</i>
+          <i class="material-icons">close</i>
         </span>
         <div class="card-image back waves-effect waves-block waves-light">
           <img class="front" :src="shoe.backimg">
@@ -39,6 +40,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -50,13 +52,12 @@ export default {
   data() {
     return {
       mens: [],
-      womens: [],
-      brand: null
+      womens: []
     };
   },
-  props: ["showItems"],
+  props: ["colorOption", "brandOption"],
   mounted() {
-    console.log(this.showItems, "FO")
+    console.log(this.colorOption, "FO")
     const category = this.$route.params.category;
     const brand = this.$route.params.brand;
     this.brand = brand;
@@ -95,6 +96,12 @@ export default {
       console.log(this.$route.params.category, "route,pathcat");
       let c = this.$route.params.category;
       return c;
+    },
+    brand: function(){
+        console.log(this.brandOption, "BO")
+          return (!this.brandOption) 
+          ? this.$route.params.brand : 
+          this.brandOption;
     }
   },
   beforeRouteEnter(to, from, next) {},
@@ -155,6 +162,7 @@ export default {
 }
 .card.medium .card-image.back {
   max-height: 82%;
+      min-height: 17rem;
 }
 button.btn.right.cart {
   width: 9rem;
@@ -180,5 +188,25 @@ button.btn.right.cart {
 }
 button.addedToCart {
   background-color: #1463a2 !important;
+}
+span.color-sample {
+    background-color: black;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    margin-top: -22px;
+    z-index: 1;
+    border: 1px solid darkgray;
+        margin-left: 70%
+}
+@media only screen and (max-width:800px){
+    .card-title {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
 }
 </style>

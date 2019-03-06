@@ -10,8 +10,8 @@
               </p>
             </li>
             <li class="collection-item collection-body">
-              <button class="btn btn-small blue col s6">Adidas</button>
-              <button class="btn btn-small blue col s6">Nike</button>
+              <button :class="{'active' : 'adidas' === chosenBrand  }" class="brand-choice btn btn-small waves-effect waves-light blue col s6" @click="chooseBrand('adidas')">Adidas</button>
+              <button :class="{'active' : 'nike' === chosenBrand  }" class="brand-choice btn btn-small waves-effect waves-light blue col s6" @click="chooseBrand('nike')">Nike</button>
             </li>
             <li class="collection-header">
               <p>
@@ -23,9 +23,10 @@
                 v-for="(color, index) in colorsList"
                 :key="index"
                 :class="color"
-                @click="filterByColor(color)"
+                @click="filterByColor(color, $event)"
                 class="btn-floating btn-small waves-effect waves-light margin-5 color-button"
               ></button>
+              <button class="btn btn-small waves-effect waves-light margin-5 white" @click="allColors">All Colours</button>
             </li>
             <li class="collection-header">
               <p>
@@ -33,20 +34,16 @@
               </p>
             </li>
             <li class="collection-item collection-body sizes">
-              <button class="btn btn-small white col s4">5</button>
-              <button class="btn btn-small white col s4">6</button>
-              <button class="btn btn-small white col s4">7</button>
-              <button class="btn btn-small white col s4">8</button>
-              <button class="btn btn-small white col s4">9</button>
-              <button class="btn btn-small white col s4">10</button>
-              <button class="btn btn-small white col s4">11</button>
-              <button class="btn btn-small white col s4">12</button>
+              <button v-for="(size, index) in sizes" 
+                    @click="chooseSize($event)"
+                    :key="index" class="btn btn-small white col s4 sizes-choice">
+                  {{size}}</button>
             </li>
           </ul>
         </aside>
         <div class="col l9 m8 s12">
-          <h2 class="header">Product Page</h2>
-          <ProductList :showItems="filterOptions"/>
+          <h2 class="header">{{pageTitle}}</h2>
+          <ProductList :colorOption="filterOptions" :brandOption="chosenBrand"/>
         </div>
       </div>
       <div class="row bottom-page">
@@ -69,6 +66,7 @@ export default {
   components: { PageFooter, ProductSlider, ProductList },
   data() {
     return {
+      brandFilterChoice:null,
       cartItems: [],
       filterOptions: [
         "white",
@@ -79,7 +77,10 @@ export default {
         "red",
         "navy",
         "yellow",
-        "grey"
+        "grey",
+        "beige",
+        "purple",
+        "orange"
       ],
       colorsList: [
         "white",
@@ -90,17 +91,61 @@ export default {
         "red",
         "navy",
         "yellow",
-        "grey"
-      ]
+        "grey",
+        "beige",
+        "purple",
+        "orange"
+      ], 
+      sizes:[4,5,6,7,8,9,10,11,12]
     };
   },
+  computed:{
+        chosenBrand: function(){
+        console.log(this.brandFilterChoice, "BO", "route param", this.$route.params.brand)
+          return (!this.brandFilterChoice) 
+          ? this.$route.params.brand : 
+          this.brandFilterChoice;
+        }, 
+        pageTitle:function(){
+            var title = this.chosenBrand[0].toUpperCase() + this.chosenBrand.substring(1);
+        
+            return title;
+        },
+
+  },
   methods: {
-      filterByColor(color){
+      chooseSize(ev) {
+          var buttons = document.querySelectorAll('.sizes-choice');
+          Array.from(buttons).forEach((b)=> {b.classList.remove('active')})
+          let but = ev.target.classList.add('active');
+      },
+      chooseBrand(chosen) {
+          console.log('chooseBrand', chosen);
+          this.removeChosenBrandButtonActive()
+          this.brandFilterChoice = chosen;
+      },
+      removeChosenBrandButtonActive() {
+          var buttons = document.querySelectorAll('.brand-choice');
+          Array.from(buttons).forEach((b)=> {b.classList.remove('active')})
+      },
+      allColors(color){
+          this.removeColorFilterActive()
           this.filterOptions = this.colorsList;
+      },
+      removeColorFilterActive() {
+          var buttons = document.querySelectorAll('.color-button');
+          Array.from(buttons).forEach((b)=> {b.classList.remove('active-color')})
+      },
+      filterByColor(color, ev){
+          this.removeColorFilterActive();
+          ev.target.classList.add('active-color')
+          this.filterOptions = this.colorsList;
+          console.log(this.filterOptions, "before")
           let isSameColor = function(col){
               return col === color;
           }
           this.filterOptions = this.filterOptions.filter(isSameColor)
+          console.log(this.filterOptions, "after")
       },
     handleAddToCart(value, event) {
       let button = event.target;
@@ -167,5 +212,12 @@ h2.header {
 .collection-header p i {
   vertical-align: bottom;
   margin-right: 7px;
+}
+button.active {
+    background-color: black !important;
+    color:white !important;
+}
+button.color-button.active-color {
+    transform:scale(1.3);
 }
 </style>
