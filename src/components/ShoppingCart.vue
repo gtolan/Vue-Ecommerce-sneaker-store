@@ -1,4 +1,5 @@
 <template>
+<div>
   <section class="container">
     <ul class="collection with-header">
       <li class="collection-header">
@@ -40,12 +41,16 @@
       class="btn right cart waves-effect waves-light btn-small blue"
     >Checkout</button>
   </section>
+  <PageFooter />
+  </div>
 </template>
 
 <script>
 import EventBus from "../eventBus";
+import PageFooter from "./PageFooter";
 export default {
   name: "ShoppingCart",
+  components:{PageFooter},
   data() {
     return { cartItems: [] };
   },
@@ -136,5 +141,8 @@ export default {
 }
 input.quantity {
   text-align: center;
+}
+footer {
+    margin-top:50vh;
 }
 </style>

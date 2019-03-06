@@ -5,22 +5,25 @@
             <button @click="prevSlide" class="btn-floating btn-medium waves-effect waves-light blue-grey lighten-3 left-chevron"><i class="material-icons">chevron_left</i></button>
             <button @click="nextSlide" class="btn-floating btn-medium waves-effect waves-light blue-grey lighten-3 right-chevron"><i class="material-icons">chevron_right</i></button>
         </div>
-      <div class="slide" v-for="slide in carousel" 
-            :key="slide.id" 
-            :style="{ backgroundImage: 'url(' + slide.img + ')' }"
+
+        <div class="slide" v-for="slide in carousel" 
+                :key="slide.id" 
+                :style="{ backgroundImage: 'url(' + slide.img + ')' }"
+                :class="{ active: (slide.id == activeSlide) }">
+            <h1 class="col s12 m12 l12">{{slide.title}}</h1>
+            <h5 class="col s12 m12 l12"> {{slide.text}}</h5>
+        </div>
+      
+        <router-link class="waves-effect waves-light btn-large see-more red" v-bind:to="activeSlideLink">See More</router-link>
+      
+        <div class="row slider-control center-align" >
+            <button v-for="slide in carousel" 
+            :key="slide.id" class="btn-floating btn-small waves-effect waves-light white" 
+                @click="viewSlide(slide.id)"
             :class="{ active: (slide.id == activeSlide) }">
-        <h1 class="col s12 m12 l12">{{slide.title}}</h1>
-        <h5 class="col s12 m12 l12"> {{slide.text}}</h5>
-        <router-link class="waves-effect waves-light btn-large see-more red" v-bind:to="{}">See More</router-link>
-      </div>
-      <div class="row slider-control center-align" >
-          <button v-for="slide in carousel" 
-          :key="slide.id" class="btn-floating btn-small waves-effect waves-light white" 
-            @click="viewSlide(slide.id)"
-          :class="{ active: (slide.id == activeSlide) }">
-            <i class="material-icons">trip_origin</i>
-          </button>
-      </div>
+                <i class="material-icons">trip_origin</i>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -36,22 +39,22 @@
                             {id:1,
                             img:'https://cdn.shopify.com/s/files/1/0877/2824/files/20181008_MG_1589.jpg?v=1539291947',
                             title:'Comfort',
-                            link:'',
+                            link:'products/all/nike',
                             text:'Walk on clouds'},
                             {id:2,
                             img:'https://media.nicershoes.com/wp-content/uploads/2018/01/Best-Shoes-for-Rain.jpeg',
                             title:'Rain Ready',
-                            link:'',
+                            link:'products/all/adidas',
                             text:'For all weather sneakers'},
                             {id:3,
                             img:'https://i.ytimg.com/vi/tWq_ifZzhdg/maxresdefault.jpg',
                             title:'Ready for Anything',
-                            link:'',
+                            link:'products/all/nike',
                             text:'The right shoe for the right moment'},
                             {id:4,
                             img:'http://www.thebearbrighton.co.uk/images/large/fastsole.co.uk/TU%20R17VD7JjihBV6Y8d_LRG.jpg',
                             title:'adidas',
-                            link:'',
+                            link:'products/all/nike',
                             text:'The best brands available'},
                             ]
             }
@@ -90,6 +93,15 @@
             }
 
         },
+        computed:{
+            activeSlideLink:function(){
+                console.log('active', this.activeSlide)
+                let index = Number.parseInt(this.activeSlide);
+                index--;
+                let link = this.carousel[index].link
+                return link;
+            }
+        },
         mounted() {
             this.startSlider()
         }
@@ -104,6 +116,7 @@
     margin-top: -75px;
     margin-bottom: 0px;
 }
+
 .carousel-wrap .slide{
     height: 100%;
     width: 100%;
@@ -131,9 +144,12 @@
     padding-left: 4rem;
 }
 .carousel-wrap .slide .see-more {
+    text-align: center;
+    z-index: 10;
+    position: absolute;
     width: 12rem;
-    margin-top: 2rem;
     margin-left: calc(50vw - 6rem);
+    top: 65vh;
 }
 .slider-btns {
     position: absolute;
