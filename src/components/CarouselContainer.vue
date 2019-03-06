@@ -143,7 +143,7 @@
     font-weight: 300;
     padding-left: 4rem;
 }
-.carousel-wrap .slide .see-more {
+.carousel-wrap .see-more {
     text-align: center;
     z-index: 10;
     position: absolute;
