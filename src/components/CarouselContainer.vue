@@ -180,4 +180,10 @@
     background-color: lightslategray !important;
     transform: scale(1)
 }
+@media only screen and (max-width:550px){
+    .carousel-wrap .slide h1{
+    margin-top: 0px;
+    padding-top: 29vh;
+    }
+}
 </style>

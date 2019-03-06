@@ -186,5 +186,7 @@ div#dropin-container.active {
     top:10vh;
     transform:scale(1);
 }
-
+.slated-page {
+    color:lightslategrey !important;
+}
 </style>

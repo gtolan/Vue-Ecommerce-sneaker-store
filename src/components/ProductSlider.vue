@@ -10,9 +10,6 @@
     <div class="scroll-products">
         
         <div class="scroll-products-wrapper row">
-            
-
-           
             <div v-for="shoe in shoes" :key="shoe.id" class="product-scroll-item">
                 <div class="image-container">
                     <img :src="shoe.img" class="main-img">
@@ -120,6 +117,7 @@
         overflow-y: hidden;
         width: 100vw;
     }
+
     .product-scroll-item {
         height: 300px;
         width: 300px;
@@ -172,5 +170,10 @@
         overflow: hidden;
         display: grid;
         grid-template-columns: auto auto;
+    }
+    @media only screen and (max-width:750px){
+        .product-line .scroll-control{
+            width: 165px;
+        }
     }
 </style>

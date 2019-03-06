@@ -2,7 +2,7 @@
   <section>
     <div class="product-view row">
       <div class="col s6">
-        <div class="card col s6" v-for="(href, index) in allImages" :key="index">
+        <div class="card col s6" v-for="(href, index) in allImages" :key="index" v-if="href">
           <img :src="href" class="side-image shoe-image" @click="updateLargeImage(href)">
         </div>
       </div>

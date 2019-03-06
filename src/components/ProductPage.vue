@@ -159,6 +159,9 @@ export default {
     //   EventBus.$on("DATA_PUBLISHED", payload => {
     //     console.log("payload recieved", payload);
     //   });
+  },
+  updated(){
+
   }
 };
 </script>
@@ -219,5 +222,8 @@ button.active {
 }
 button.color-button.active-color {
     transform:scale(1.3);
+}
+.slated-page {
+    color:lightslategrey !important;
 }
 </style>

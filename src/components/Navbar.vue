@@ -1,12 +1,12 @@
  <template>
   <nav class="transparent">
     <div class="nav-wrapper container">
-      <router-link to="/" class="brand-logo" :class="{slategray : slate}">
+      <router-link to="/" class="brand-logo slated-page" :class="{slategray : slate}">
         <i class="material-icons">cloud</i>Sneaker's
       </router-link>
       <ul class="right hide-on-med-and-down">
         <li>
-          <router-link to="/cart" class="cart-btn" :class="{slategray : slate}">
+          <router-link to="/cart" class="cart-btn slated-page" :class="{slategray : slate}">
             <i class="material-icons">shopping_cart</i>
             <div class="cart-preview">
               <p>{{cart.length | itemAmount }} in cart ({{totalQty}})</p>
@@ -15,13 +15,13 @@
           </router-link>
         </li>
         <li>
-          <a href="home" :class="{slategray : slate}">
+          <a href="" class="slated-page" :class="{slategray : slate}">
             <i class="material-icons">refresh</i>
           </a>
         </li>
         <li>
-          <a href="more" :class="{slategray : slate}">
-            <i class="material-icons">more_vert</i>
+          <a href="more" class="slated-page" :class="{slategray : slate}">
+            <i class="material-icons">person</i>
           </a>
         </li>
       </ul>
@@ -45,7 +45,7 @@ export default {
     }
   },
   mounted() {
-    // this.changeNav();
+    this.changeNav();
     // EventBus.$on("addToCart", value => {
     //   this.addToCart(value);
     // });

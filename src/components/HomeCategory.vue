@@ -224,5 +224,9 @@ button.find-out-more {
   main .wrapper button {
     margin-left: 1rem;
   }
+   .product-line .scroll-control{
+            width: 165px;
+        }
+ 
 }
 </style>
