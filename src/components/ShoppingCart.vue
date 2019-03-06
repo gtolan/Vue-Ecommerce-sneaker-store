@@ -32,14 +32,28 @@
         <p>No products in your cart</p>
       </li>
       <li v-if="cart.length > 0" class="total-price">
-        <p>Total: {{totalPrice}}</p>
+        <p>Total: {{totalPrice | euros}}</p>
       </li>
     </ul>
 
     <button
       :disabled="cart.length === 0"
+      @click="checkoutButton"
       class="btn right cart waves-effect waves-light btn-small blue"
     >Checkout</button>
+    <div id="dropin-container" class="card">
+                <button
+          @click="closePayNow"
+          class="btn-floating btn-small waves-effect waves-light grey center-align"
+        >
+          <i class="material-icons">close</i>
+        </button>
+                <p>Total: {{totalPrice | euros}}</p>
+                <input type="number" placeholder="Card Number" class="col s12">
+                <input type="number" placeholder="Expiration Data" class="col s12">
+                <button class="btn btn-medium waves-effect waves-light blue">Pay Now</button>
+         
+    </div>
   </section>
   <PageFooter />
   </div>
@@ -63,6 +77,14 @@ export default {
     // });
   },
   methods: {
+    closePayNow(){
+        let paynow = document.getElementById('dropin-container');
+        paynow.classList.remove('active');
+    },
+    checkoutButton() {
+        let paynow = document.getElementById('dropin-container');
+        paynow.classList.add('active');
+    },
     handleDelteItem(value) {
       console.log("handle-delete", value);
       EventBus.$emit("deleteItem", value);
@@ -145,4 +167,24 @@ input.quantity {
 footer {
     margin-top:50vh;
 }
+div#dropin-container {
+    visibility:hidden;
+    opacity:0;
+    position:fixed;
+    top:10vh;
+    padding: 2rem;
+    text-align: center;
+    width:70%;
+    z-index:10;
+    transform:scale(0);
+    transition:.5s;
+}
+div#dropin-container.active {
+    visibility:visible;
+    opacity:1;
+    position:fixed;
+    top:10vh;
+    transform:scale(1);
+}
+
 </style>
