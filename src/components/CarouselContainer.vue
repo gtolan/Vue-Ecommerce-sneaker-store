@@ -95,7 +95,7 @@
         },
         computed:{
             activeSlideLink:function(){
-                console.log('active', this.activeSlide)
+              
                 let index = Number.parseInt(this.activeSlide);
                 index--;
                 let link = this.carousel[index].link

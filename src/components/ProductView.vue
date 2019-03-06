@@ -54,7 +54,6 @@ export default {
   },
   components: { PageFooter },
   mounted() {
-    console.log("");
     this.getProductData();
   },
   updated() {
@@ -69,7 +68,6 @@ export default {
       return [...this.mens, ...this.womens];
     },
     allImages: function() {
-      console.log(this.shoe.img, "img", this.shoe);
       return [
         this.shoe.img,
         this.shoe.hoverimg,
@@ -110,7 +108,6 @@ export default {
       window.requestAnimationFrame(step);
     },
     updateLargeImage(href) {
-      console.log("update-large,", href, this.largeImage, "before");
       document.querySelector(".main-image.shoe-image").src = href;
     },
     matchProductId(products, product_id) {

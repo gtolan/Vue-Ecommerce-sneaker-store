@@ -1,9 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/components/Home";
-import ViewEmployee from "@/components/ViewEmployee";
-import NewEmployee from "@/components/NewEmployee";
-import EditEmployee from "@/components/EditEmployee";
 import ProductPage from "@/components/ProductPage";
 import ProductView from "@/components/ProductView";
 import AboutPage from "@/components/AboutPage";
@@ -28,11 +25,6 @@ export default new Router({
       component: Home
     },
     {
-      path: "/new",
-      name: "new-employee",
-      component: NewEmployee
-    },
-    {
       path: "/about",
       name: "about-us",
       component: AboutPage
@@ -48,19 +40,9 @@ export default new Router({
       component: ContactPage
     },
     {
-      path: "/:employee_id",
-      name: "view-employee",
-      component: ViewEmployee
-    },
-    {
       path: "/:category/:product_id",
       name: "product-view",
       component: ProductView
-    },
-    {
-      path: "/edit/:employee_id",
-      name: "edit-employee",
-      component: EditEmployee
     }
   ]
 });

@@ -10,7 +10,6 @@
 <script>
 import EventBus from "./eventBus";
 import Navbar from "./components/Navbar";
-import NewEmployee from "./components/NewEmployee";
 // import PageFooter from './components/PageFooter';
 export default {
   name: "app",
