@@ -15,7 +15,7 @@
           </router-link>
         </li>
         <li>
-          <a href="" class="slated-page" :class="{slategray : slate}">
+          <a href class="slated-page" :class="{slategray : slate}">
             <i class="material-icons">refresh</i>
           </a>
         </li>
@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     changeNav() {
-      console.log(this.$route, "route updated");
       if (
         this.$route.path.startsWith("/products") ||
         this.$route.path.startsWith("/cart") ||
@@ -76,7 +75,6 @@ export default {
       }
     },
     addToCart(itemToAdd) {
-      console.log(itemToAdd, "adding to cart");
       let inBasket = false;
       this.cartItems.forEach(item => {
         if (item.id === itemToAdd.id) {
@@ -94,9 +92,7 @@ export default {
       function removeItem(val) {
         return val.id !== itemToDelete.id;
       }
-      console.log("cart", this.cart);
       var removed = this.cartItems.filter(removeItem);
-      console.log(removed, "removed");
       this.cartItems = removed;
     }
   }

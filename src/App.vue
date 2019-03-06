@@ -14,9 +14,7 @@ import Navbar from "./components/Navbar";
 export default {
   name: "app",
   components: {
-    Navbar,
-    NewEmployee
-    // PageFooter
+    Navbar
   },
   data() {
     return {
@@ -30,14 +28,12 @@ export default {
         var total = this.cartItems.reduce((a, b) => ({
           qty: Number.parseInt(a.qty) + Number.parseInt(b.qty)
         }));
-        console.log(total, "red total");
         return total.qty;
       }
     }
   },
   methods: {
     addToCart(itemToAdd) {
-      console.log(itemToAdd, "adding to cart");
       let inBasket = false;
       itemToAdd.qty = 1;
       this.cartItems.forEach(item => {
@@ -54,32 +50,25 @@ export default {
       function removeItem(val) {
         return val.id !== itemToDelete.id;
       }
-      console.log("cart", this.cart);
       var removed = this.cartItems.filter(removeItem);
-      console.log(removed, "removed");
       this.cartItems = removed;
     },
     alterQty(id, amount) {
-      console.log("alter QTy in cart", id, amount);
       function itemToAlter(val) {
         if (val.id == id) {
           val.qty = amount;
         }
         return val;
       }
-      console.log("cart", this.cartItems);
       var updated = this.cartItems.map(itemToAlter);
-      console.log("updated", updated);
       this.cartItems = updated;
     }
   },
   mounted() {
     EventBus.$on("addToCart", value => {
-      console.log("payload recieved app", value);
       this.addToCart(value);
     });
     EventBus.$on("deleteItem", value => {
-      console.log("payload recieved app", value);
       this.deleteItem(value);
     });
     EventBus.$on("alterQty", (id, amount) => {
